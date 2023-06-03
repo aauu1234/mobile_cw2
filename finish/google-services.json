@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "306352674370",
+    "firebase_url": "https://pivotal-spark-216010-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pivotal-spark-216010",
+    "storage_bucket": "pivotal-spark-216010.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306352674370:android:7c3f86cb64248f9844ffdb",
+        "android_client_info": {
+          "package_name": "org.tensorflow.lite.examples.classification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306352674370-10og3t7n0fcpb95hgspbk5jm18176lin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWx744_OHA64I1wUSL0C8tzvRFO-xoH7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306352674370-10og3t7n0fcpb95hgspbk5jm18176lin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
