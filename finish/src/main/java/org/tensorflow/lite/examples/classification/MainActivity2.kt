@@ -6,16 +6,20 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import org.tensorflow.lite.examples.classification.databinding.ActivityMain2Binding
 
 //import org.tensorflow.lite.examples.classification.binding.ActivityMainBinding
 
 
 class MainActivity2 : AppCompatActivity() {
+
+
 
 private lateinit var binding: ActivityMain2Binding
 

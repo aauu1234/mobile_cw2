@@ -1,5 +1,6 @@
 package org.tensorflow.lite.examples.classification.plantList
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,17 @@ class ParentAdapter(private var parentList: List<ParentItem>,private val fragmen
         val parentItem = parentList[position]
         holder.logoIv.setImageResource(parentItem.logo)
         holder.titleTv.text = parentItem.title
+
+        // Set the background color based on the position
+        // Set the background color based on the parent item's title
+        val backgroundColor = when (parentItem.title) {
+            "Eatable Plants" -> Color.parseColor("#55C65A")
+            "Neutral And Non-Eatable Plants" -> Color.parseColor("#ECDA3E")
+            "Toxic Plants" -> Color.parseColor("#D63B30")
+            "Extreme Toxic Plants" -> Color.parseColor("#800080") // Purple
+            else -> Color.WHITE
+        }
+        holder.childRecyclerView.setBackgroundColor(backgroundColor)
 
         holder.childRecyclerView.setHasFixedSize(true)
         holder.childRecyclerView.layoutManager = GridLayoutManager(holder.itemView.context, 3)

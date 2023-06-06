@@ -45,9 +45,16 @@ class Setting : Fragment() {
         notificationSwitch = view.findViewById(R.id.notification_switch)
         notificationSwitch.isChecked = sharedPreferences.getBoolean("EnableNotifications", true)
 
+
         notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             sharedPreferences.edit().putBoolean("EnableNotifications", isChecked).apply()
+
+            if (!isChecked) {
+                // Stop the dwell timer in GeofenceBroadcastReceiver
+                GeofenceBroadcastReceiver.getInstance().stopDwellTimer()
+            }
         }
+
 
         return view
     }

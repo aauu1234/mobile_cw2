@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:background="#83A65A"
     tools:context=".Scan">
 
     <!-- TODO: Update blank fragment layout -->
@@ -28,10 +28,10 @@
             android:id="@+id/NPOS2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#BAB827"
             android:layout_below="@+id/result"
-
             android:layout_centerHorizontal="true"
+
+            android:backgroundTint="#BAB827"
             android:text="無毒"
             tools:layout_editor_absoluteY="503dp" />
 
@@ -39,21 +39,20 @@
             android:id="@+id/POS2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#CA1111"
             android:layout_below="@+id/result"
-
             android:layout_centerHorizontal="true"
+
+            android:backgroundTint="#CA1111"
             android:text="有毒" />
 
         <Button
             android:id="@+id/EPOS2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/result"
+            android:layout_centerHorizontal="true"
             android:backgroundTint="#C80DC5"
             android:text="劇毒"
-            android:layout_below="@+id/result"
-
-            android:layout_centerHorizontal="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -64,6 +63,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="180dp"
+            android:backgroundTint="#876A41"
             android:text="Real Time Scan"
             android:textAllCaps="false"
             android:textSize="21sp"
@@ -73,8 +73,7 @@
             android:id="@+id/imageView2"
             android:layout_width="370sp"
             android:layout_height="370sp"
-            android:layout_centerHorizontal="true"
-            />
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/button2"
@@ -83,6 +82,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="78dp"
+            android:backgroundTint="#876A41"
             android:text="Launch Gallery"
             android:textAllCaps="false"
             android:textSize="21sp"
@@ -119,6 +119,7 @@
             android:layout_above="@id/button2"
             android:layout_centerVertical="true"
             android:layout_marginBottom="3dp"
+            android:backgroundTint="#876A41"
             android:text="Take Picture"
             android:textAllCaps="false"
             android:textSize="21sp"

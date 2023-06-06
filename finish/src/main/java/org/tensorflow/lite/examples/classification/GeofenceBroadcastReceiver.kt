@@ -15,7 +15,7 @@ import androidx.core.content.getSystemService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
-
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
     private lateinit var geofencelist: List<Geofence>
@@ -43,6 +43,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         val enableNotifications = sharedPreferences?.getBoolean("EnableNotifications", true) ?: true
 
         if (!enableNotifications) {
+          //  dwellTimer?.cancel()
             stopDwellTimer()
             return
         }
@@ -83,7 +84,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     }
 
     private fun startDwellTimer(context: Context) {
-        dwellTimer = object : CountDownTimer(Long.MAX_VALUE, 10000) {
+        dwellTimer = object : CountDownTimer(3, 5000) {
             override fun onTick(millisUntilFinished: Long) {
                 Log.d("GeofenceReceiver", "Geofence dwell (10 seconds interval)")
                 Toast.makeText(context, "You are still in the Toxic Plants Area!!", Toast.LENGTH_SHORT).show()
@@ -96,7 +97,20 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }.start()
     }
 
-    private fun stopDwellTimer() {
+    fun stopDwellTimer() {
+        Log.d("GeofenceReceiver", "Stop DwellTimer")
         dwellTimer?.cancel()
+
+    }
+
+    companion object {
+        private var instance: GeofenceBroadcastReceiver? = null
+
+        fun getInstance(): GeofenceBroadcastReceiver {
+            if (instance == null) {
+                instance = GeofenceBroadcastReceiver()
+            }
+            return instance!!
+        }
     }
 }

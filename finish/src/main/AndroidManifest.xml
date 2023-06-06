@@ -54,7 +54,8 @@
 <!--            android:enabled="true"-->
 <!--            android:exported="false">-->
 <!--        </receiver>-->
-<receiver android:name=".GeofenceBroadcastReceiver"/>
+<receiver android:name=".GeofenceBroadcastReceiver"
+/>
 
 
     </application>

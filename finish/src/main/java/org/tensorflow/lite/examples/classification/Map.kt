@@ -332,7 +332,7 @@ class Map : Fragment() {
 
     private fun onMarkerClick(marker:Marker){
 
-        Toast.makeText(requireContext(),"sad",Toast.LENGTH_SHORT).show()
+       // Toast.makeText(requireContext(),"sad",Toast.LENGTH_SHORT).show()
         val bundle=Bundle()
         bundle.putString("plantName",marker.title)
         var dialog=PlantInfoDialog()
