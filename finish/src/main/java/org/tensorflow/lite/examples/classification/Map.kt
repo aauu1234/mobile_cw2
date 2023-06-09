@@ -344,7 +344,7 @@ class Map : Fragment() {
 
         val circleOptions=CircleOptions()
         circleOptions.center(latLng)
-        circleOptions.radius(200.00)
+        circleOptions.radius(150.00)
         circleOptions.strokeColor(Color.argb(255,255,0,0))
         circleOptions.fillColor(Color.argb(64,Random.nextInt(256),Random.nextInt(256),Random.nextInt(256)))
         circleOptions.strokeWidth(4F)
@@ -355,7 +355,7 @@ class Map : Fragment() {
 
         val circleOptions=CircleOptions()
         circleOptions.center(latLng)
-        circleOptions.radius(101.00)
+        circleOptions.radius(70.00)
         circleOptions.strokeColor(Color.argb(255,255,0,0))
         circleOptions.fillColor(Color.argb(64,200,10,10))
         circleOptions.strokeWidth(4F)
@@ -364,7 +364,7 @@ class Map : Fragment() {
 
     private fun addGeofence(p0: LatLng){
         val randomId = Random.nextInt(9999).toString()
-        val geofence =geofenceHelper.getGeofence(randomId,p0,101.00, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
+        val geofence =geofenceHelper.getGeofence(randomId,p0,70.00, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
             val geofenceRequest=geofence?.let{geofenceHelper.getGeofencingRequest(it)}
             val pendingIntent=geofenceHelper.pendingIntent
         if(ActivityCompat.checkSelfPermission(requireContext(), ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
@@ -382,7 +382,7 @@ class Map : Fragment() {
 
     private fun addToxicGeofence(p0: LatLng,ID:String){
 
-        val geofence =geofenceHelper.getGeofence(ID,p0,200.00, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
+        val geofence =geofenceHelper.getGeofence(ID,p0,150.00, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
         if (geofence != null) {
         val geofenceRequest=geofence?.let{geofenceHelper.getGeofencingRequest(it)}
         val pendingIntent=geofenceHelper.pendingIntent
