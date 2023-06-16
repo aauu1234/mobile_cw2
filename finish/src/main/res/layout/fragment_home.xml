@@ -22,23 +22,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:insetLeft="280dp"
-            android:text="Button"
-            app:layout_constraintLeft_toRightOf="@+id/searchView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="263dp"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Search here ...">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="303dp"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search here ...">
 
-        </androidx.appcompat.widget.SearchView>
+            </androidx.appcompat.widget.SearchView>
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:insetLeft="280dp"
+                android:scaleType="centerInside"
+                app:layout_constraintLeft_toRightOf="@+id/searchView"
+                app:srcCompat="@drawable/voice2"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
