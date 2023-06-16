@@ -2,6 +2,7 @@ package org.tensorflow.lite.examples.classification
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -55,6 +56,14 @@ class Setting : Fragment() {
             }
         }
 
+
+        val logoutButton: Button = view.findViewById(R.id.buttonLogout)
+        logoutButton.setOnClickListener {
+            val intent = Intent(activity, MainLogin::class.java)
+            startActivity(intent)
+            // If you want to close the current activity after navigating to LoginActivity
+            activity?.finish()
+        }
 
         return view
     }

@@ -41,7 +41,9 @@ class MainLogin : AppCompatActivity() {
                     Toast.makeText(applicationContext,
                         "Authentication succeeded!", Toast.LENGTH_SHORT)
                         .show()
-
+                    Toast.makeText(applicationContext,
+                        "Welcome User Alan Au!", Toast.LENGTH_SHORT)
+                        .show()
                     // Start MainActivity2 after a successful authentication
                     val intent = Intent(this@MainLogin, MainActivity2::class.java)
                     startActivity(intent)
