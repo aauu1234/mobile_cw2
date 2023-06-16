@@ -6,19 +6,18 @@
     Make sure the device has a camera. If you use android.hardware.camera without .any,
     it will not work if you have a device without a back camera, such as most Chromebooks.
     -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage"
-        />
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
     <uses-feature android:name="android.hardware.camera.any" /> <!-- Specifying that the app will need camera permission -->
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -30,34 +29,34 @@
         android:theme="@style/Theme.TFLClassify"
         tools:ignore="AllowBackup">
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA-AP5Gs2yZ4PmomVOW0SJjMGzabh8Z17M"/>
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA-AP5Gs2yZ4PmomVOW0SJjMGzabh8Z17M" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity2"
             android:exported="true" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!--        <receiver-->
-<!--            android:name=".receiver.AlarmReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false">-->
-<!--        </receiver>-->
-<!--        <receiver-->
-<!--            android:name=".receiver.SnoozeReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false">-->
-<!--        </receiver>-->
-<receiver android:name=".GeofenceBroadcastReceiver"
-/>
-
-
+        </activity> <!-- <receiver -->
+        <!-- android:name=".receiver.AlarmReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="false"> -->
+        <!-- </receiver> -->
+        <!-- <receiver -->
+        <!-- android:name=".receiver.SnoozeReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="false"> -->
+        <!-- </receiver> -->
+        <receiver android:name=".GeofenceBroadcastReceiver" />
     </application>
 
 </manifest>
