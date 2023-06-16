@@ -1,15 +1,22 @@
 package org.tensorflow.lite.examples.classification
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.ContentValues
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import android.util.LruCache
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -25,7 +32,9 @@ import java.util.*
 private lateinit var recyclerView: RecyclerView
 private lateinit var searchView: SearchView
 private val parentList = ArrayList<ParentItem>()
-
+const val RESULT_SPEECH = 1
+private var btnSpeak: ImageButton? = null
+private var voiceText:String=""
 //private lateinit var adapter: ChildAdapter
 //private val adapter2=ChildAdapter(childItems1)
 //private val parentAdapter2= ParentAdapter(parentList,)
@@ -82,8 +91,46 @@ class Home : Fragment() {
         })
 
 
+        btnSpeak =rootView.btnSpeak
+
+        btnSpeak?.let { button ->
+            button.setOnClickListener {
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                intent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH)
+                    voiceText=""
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Your device doesn't support Speech to Text",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    e.printStackTrace()
+                }
+            }
+        }
+
 
         return rootView
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            RESULT_SPEECH -> if (resultCode == Activity.RESULT_OK && data != null) {
+                val text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+              //  tvText?.text = text!![0]
+                voiceText=text!![0]
+                val lowercaseText = text[0].lowercase(Locale.ROOT)
+                searchView.setQuery(lowercaseText, false) // Set the lowercase text to searchView
+
+            }
+        }
     }
 
     private fun filterList(query: String?,parentAdapter2:ParentAdapter) {
@@ -161,6 +208,7 @@ class Home : Fragment() {
 
     }
 
+    @SuppressLint("Range")
     private fun getToxicPlantLocData():List<PlantModels>{
         AssetsDatabaseManager.initManager(activity);
 // 获取管理对象，因为数据库需要通过管理对象才能够获取
