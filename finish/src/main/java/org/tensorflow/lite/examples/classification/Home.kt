@@ -133,7 +133,7 @@ class Home : Fragment() {
         }
     }
 
-    private fun filterList(query: String?,parentAdapter2:ParentAdapter) {
+    fun filterList(query: String?,parentAdapter2:ParentAdapter) {
 
         if (query != null) {
             val filteredParentList = java.util.ArrayList<ParentItem>()
@@ -176,7 +176,7 @@ class Home : Fragment() {
         }
     }
 
-    private fun addDataToList() {
+    fun addDataToList() {
          val childItems1 = ArrayList<ChildItem>()
          val childItems2 = ArrayList<ChildItem>()
         val childItems3 = ArrayList<ChildItem>()

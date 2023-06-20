@@ -83,7 +83,20 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
-
+    implementation 'androidx.test:core-ktx:1.5.0'
+    implementation 'junit:junit:4.12'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.test:core:1.4.1'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation 'com.android.support:support-annotations:28.0.0'
+    testImplementation 'com.android.support.test:rules:1.0.2'
+    implementation 'org.mockito.kotlin:mockito-kotlin:3.+'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.+'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     // Import for CameraX
     def camerax_version = "1.0.0-beta10"
     // CameraX core library using camera2 implementation
@@ -93,11 +106,11 @@ dependencies {
     // CameraX View class
     implementation "androidx.camera:camera-view:1.0.0-alpha17"
     implementation "androidx.activity:activity-ktx:1.1.0"
-
+    implementation 'androidx.fragment:fragment-testing:1.4.1'
     // TODO 5: Optional GPU Delegates
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.test.espresso:espresso-core:3.+'
 }
