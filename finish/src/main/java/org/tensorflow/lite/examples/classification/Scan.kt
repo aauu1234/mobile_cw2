@@ -61,20 +61,6 @@ private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA) // permis
  */
 class Scan : Fragment(){
 
-    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
-//
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//
-//
-//        }
-//    }
     var camera: Button? = null
     var gallery:android.widget.Button? = null
     var imageView: ImageView? = null
@@ -446,22 +432,6 @@ class Scan : Fragment(){
                 image = Bitmap.createScaledBitmap(image!!, imageSize, imageSize, false)
                 classifyImage(image)
 
-                // Check plant status and name
-//                val status = checkPlantStatus(plantArrayList)
-//                if (status!="") {
-//                    Log.d(TAG, "status.isNotEmptystatus.isNotEmptystatus.isNotEmptystatus.isNotEmptystatus.isNotEmptystatus.isNotEmpty")
-//                    alertButton(status)
-//                } else {
-//                    Log.d(TAG, "status.isEmpty Empty")
-//                    disableAllButton()
-//                }
-//
-//                val plantName = checkPlantName(plantArrayList)
-//                if (plantName.isNotEmpty()) {
-//                    buttonAction(plantName)
-//                } else {
-//                    disableAllButton()
-//                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

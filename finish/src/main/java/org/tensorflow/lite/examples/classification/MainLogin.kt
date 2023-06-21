@@ -3,6 +3,8 @@ package org.tensorflow.lite.examples.classification
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -87,5 +89,24 @@ class MainLogin : AppCompatActivity() {
                 // Prompts the user to create credentials that your app accepts.
                 biometricStatusTextView.text = "Biometric features are not enrolled."
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val x = event.x
+        val y = event.y
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                Log.d("PointerLocation", "Down: x=$x, y=$y")
+            }
+            MotionEvent.ACTION_MOVE -> {
+                Log.d("PointerLocation", "Move: x=$x, y=$y")
+            }
+            MotionEvent.ACTION_UP -> {
+                Log.d("PointerLocation", "Up: x=$x, y=$y")
+            }
+        }
+
+        return super.onTouchEvent(event)
     }
 }
