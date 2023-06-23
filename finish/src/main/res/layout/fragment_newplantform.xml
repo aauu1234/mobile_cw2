@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6FB164"
+    tools:context=".NewPlantForm">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/plant_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant Name"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"/>
+
+        <EditText
+            android:id="@+id/plant_name_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter plant name"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_name_label"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/plant_toxicity_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant Toxicity"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_name_input"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"/>
+
+        <EditText
+            android:id="@+id/plant_toxicity_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter plant toxicity"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_toxicity_label"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/plant_detail_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant Detail"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_toxicity_input"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"/>
+
+        <EditText
+            android:id="@+id/plant_detail_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter plant detail"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_detail_label"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/plant_location_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plant Location"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_detail_input"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"/>
+
+        <EditText
+            android:id="@+id/plant_location_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter plant location"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_location_label"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <Button
+            android:id="@+id/upload_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Image from Gallery"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_location_input"
+            android:layout_marginTop="32dp"/>
+
+        <ImageView
+            android:id="@+id/image_preview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="Image Preview"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upload_image_button"
+            android:layout_marginTop="16dp"/>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_preview"
+            android:layout_marginTop="32dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

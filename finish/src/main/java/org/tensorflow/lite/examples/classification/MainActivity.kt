@@ -147,6 +147,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 R.id.home->replaceFragment(Home())
+                R.id.newPlant->replaceFragment(NewPlantForm())
                 R.id.scan->replaceFragment(Scan())
                 R.id.map->replaceFragment(Map())
                 R.id.setting->replaceFragment(Setting())
