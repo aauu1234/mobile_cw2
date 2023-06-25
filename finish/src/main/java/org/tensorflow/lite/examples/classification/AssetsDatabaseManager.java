@@ -1,11 +1,14 @@
 package org.tensorflow.lite.examples.classification;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -37,6 +40,12 @@ public class AssetsDatabaseManager {
         }
     }
 
+    public static void forceInitManager(Context context){
+
+            mInstance = new AssetsDatabaseManager(context);
+
+    }
+
     /**
      * Get a AssetsDatabaseManager object
      * @return, if success return a AssetsDatabaseManager object, else return null
@@ -54,41 +63,83 @@ public class AssetsDatabaseManager {
      * @param dbfile, the assets file which will be opened for a database
      * @return, if success it return a SQLiteDatabase object else return null
      */
-    public SQLiteDatabase getDatabase(String dbfile) {
-        if(databases.get(dbfile) != null){
-            Log.i(tag, String.format("Return a database copy of %s", dbfile));
-            return (SQLiteDatabase) databases.get(dbfile);
-        }
-        if(context==null)
-            return null;
+//    public SQLiteDatabase getDatabase(String dbfile) {
+//        if(databases.get(dbfile) != null){
+//            Log.i(tag, String.format("Return a database copy of %s", dbfile));
+//            return (SQLiteDatabase) databases.get(dbfile);
+//        }
+//        if(context==null)
+//            return null;
+//
+//        Log.i(tag, String.format("Create database %s", dbfile));
+//        String spath = getDatabaseFilepath();
+//        String sfile = getDatabaseFile(dbfile);
+//
+//        File file = new File(sfile);
+//        SharedPreferences dbs = context.getSharedPreferences(AssetsDatabaseManager.class.toString(), 0);
+//        boolean flag = dbs.getBoolean(dbfile, false); // Get Database file flag, if true means this database file was copied and valid
+//        if(!flag || !file.exists()){
+//            file = new File(spath);
+//            if(!file.exists() && !file.mkdirs()){
+//                Log.i(tag, "Create \""+spath+"\" fail!");
+//                return null;
+//            }
+//            if(!copyAssetsToFilesystem(dbfile, sfile)){
+//                Log.i(tag, String.format("Copy %s to %s fail!", dbfile, sfile));
+//                return null;
+//            }
+//
+//            dbs.edit().putBoolean(dbfile, true).commit();
+//        }
+//
+//        SQLiteDatabase db = SQLiteDatabase.openDatabase(sfile, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+//        if(db != null){
+//            databases.put(dbfile, db);
+//        }
+//        return db;
+//    }
 
-        Log.i(tag, String.format("Create database %s", dbfile));
+    public SQLiteDatabase getDatabase(String dbfile) {
+        if (context == null) {
+            return null;
+        }
+
+        Log.i(tag, String.format("Create or refresh database %s", dbfile));
         String spath = getDatabaseFilepath();
         String sfile = getDatabaseFile(dbfile);
 
         File file = new File(sfile);
         SharedPreferences dbs = context.getSharedPreferences(AssetsDatabaseManager.class.toString(), 0);
         boolean flag = dbs.getBoolean(dbfile, false); // Get Database file flag, if true means this database file was copied and valid
-        if(!flag || !file.exists()){
+
+        if (!flag || !file.exists()) {
             file = new File(spath);
-            if(!file.exists() && !file.mkdirs()){
-                Log.i(tag, "Create \""+spath+"\" fail!");
+            if (!file.exists() && !file.mkdirs()) {
+                Log.i(tag, "Create \"" + spath + "\" fail!");
                 return null;
             }
-            if(!copyAssetsToFilesystem(dbfile, sfile)){
+            if (!copyAssetsToFilesystem(dbfile, sfile)) {
                 Log.i(tag, String.format("Copy %s to %s fail!", dbfile, sfile));
                 return null;
             }
 
             dbs.edit().putBoolean(dbfile, true).commit();
+        } else {
+            // Close the existing instance if it exists
+            SQLiteDatabase existingInstance = databases.get(dbfile);
+            if (existingInstance != null) {
+                existingInstance.close();
+                databases.remove(dbfile);
+            }
         }
 
         SQLiteDatabase db = SQLiteDatabase.openDatabase(sfile, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
-        if(db != null){
+        if (db != null) {
             databases.put(dbfile, db);
         }
         return db;
     }
+
 
     private String getDatabaseFilepath(){
         return String.format(databasepath, context.getApplicationInfo().packageName);
@@ -128,6 +179,30 @@ public class AssetsDatabaseManager {
             return false;
         }
         return true;
+    }
+
+    public long insertPlant(String plantName, Bitmap plantImage, String status, String info, String drugEffect, String curing, String enName) {
+        SQLiteDatabase db = getDatabase("PlantStore.db");
+
+        // Convert Bitmap to ByteArray
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        plantImage.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+        byte[] plantImageBlob = outputStream.toByteArray();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("plantname", plantName);
+        contentValues.put("image", plantImageBlob); // Save the image as a blob
+        contentValues.put("status", status);
+        contentValues.put("info", info);
+        contentValues.put("drugEffect", drugEffect);
+        contentValues.put("curing", curing);
+        contentValues.put("enName", enName);
+        Log.d("INFO", "Data record: " + contentValues);
+
+        long newRowId = db.insert("Plant", null, contentValues);
+        closeDatabase("PlantStore.db");
+
+        return newRowId;
     }
 
     /**

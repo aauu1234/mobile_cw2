@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.tensorflow.lite.examples.classification.plantList.ChildItem
 import org.tensorflow.lite.examples.classification.plantList.ParentAdapter
@@ -35,18 +36,25 @@ private val parentList = ArrayList<ParentItem>()
 const val RESULT_SPEECH = 1
 private var btnSpeak: ImageButton? = null
 private var voiceText:String=""
-//private lateinit var adapter: ChildAdapter
-//private val adapter2=ChildAdapter(childItems1)
-//private val parentAdapter2= ParentAdapter(parentList,)
 lateinit var fragmentManagers: FragmentManager
 
+interface DatabaseUpdateObserver {
+    fun onDatabaseUpdated()
+}
 
-class Home : Fragment() {
+class Home : Fragment(), DatabaseUpdateObserver {
 
- // val parentAdapter2 = TODO()
+
  private val memoryCache = LruCache<ByteArray, Bitmap>(50 * 1024 * 1024)
 
-
+    override fun onDatabaseUpdated() {
+        // Refresh the list here
+        val parentAdapter2 = ParentAdapter(parentList, fragmentManagers)
+        if (parentList.isEmpty()) {
+            addDataToList()
+        }
+        recyclerView.adapter = parentAdapter2
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +62,51 @@ class Home : Fragment() {
 
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         var rootView: View = inflater.inflate(R.layout.fragment_home, container, false)
-        var   parentAdapter2= ParentAdapter(parentList,fragmentManagers)
+        val fabRefresh: FloatingActionButton = rootView.findViewById(R.id.fab_refresh)
+        var parentAdapter2: ParentAdapter? =null
+        searchView = rootView.searchView
+        fabRefresh.setOnClickListener {
+            Log.d("INFO", "1")
+               parentAdapter2= ParentAdapter(parentList,fragmentManagers)
+         //   searchView = rootView.searchView
+            Log.d("INFO", "2")
+            recyclerView = rootView.parentRecyclerView
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+            if (parentList.isEmpty()) {
+                Log.d("INFO", "3")
+                addDataToList()
+            }else{
+                parentList.clear()
+                Log.d("INFO", "4")
+                addDataToList()
+            }
+            val adapter = ParentAdapter(parentList,fragmentManagers)
+            adapter.notifyDataSetChanged()
+            recyclerView.adapter = adapter
+
+        }
+
+
+
+
+          parentAdapter2= ParentAdapter(parentList,fragmentManagers)
         searchView = rootView.searchView
 
         recyclerView = rootView.parentRecyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         if (parentList.isEmpty()) {
-        addDataToList()
+            addDataToList()
         }
         val adapter = ParentAdapter(parentList,fragmentManagers)
 
@@ -83,7 +122,7 @@ class Home : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText,parentAdapter2)
+                parentAdapter2?.let { filterList(newText, it) }
 
                 return true
             }
@@ -118,6 +157,7 @@ class Home : Fragment() {
 
         return rootView
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -176,7 +216,7 @@ class Home : Fragment() {
         }
     }
 
-    fun addDataToList() {
+    private fun addDataToList() {
          val childItems1 = ArrayList<ChildItem>()
          val childItems2 = ArrayList<ChildItem>()
         val childItems3 = ArrayList<ChildItem>()
@@ -210,13 +250,12 @@ class Home : Fragment() {
 
     @SuppressLint("Range")
     private fun getToxicPlantLocData():List<PlantModels>{
+        AssetsDatabaseManager.closeAllDatabase()
         AssetsDatabaseManager.initManager(activity);
-// 获取管理对象，因为数据库需要通过管理对象才能够获取
         val mg = AssetsDatabaseManager.getManager();
-        // 通过管理对象获取数据库l
         val db1: SQLiteDatabase = mg.getDatabase("PlantStore.db");
         val toxicPlantLocList= arrayListOf<PlantModels>();
-// 对数据库进行操作
+        Log.d("INFO", "start call list")
         val cursor=db1.query("Plant",null,null,null,null,null,null)
         if(cursor.moveToFirst()){
             do{
@@ -228,12 +267,9 @@ class Home : Fragment() {
                 val plantEnName: String? = cursor.getString(cursor.getColumnIndex("enName"))
                 val plantCnName: String? = cursor.getString(cursor.getColumnIndex("plantname"))
                 val plantImage=cursor.getBlob(cursor.getColumnIndex("image"))
-
-//                val options: BitmapFactory.Options = BitmapFactory.Options()
-//                options.inTempStorage = ByteArray(1024 * 32)
-//
-//                val bm: Bitmap =
-//                    BitmapFactory.decodeByteArray(plantImage, 0, plantImage.size , options)
+                if (plantCnName != null) {
+                    Log.d("INFO", "list data record:$plantCnName")
+                }
                 val options = BitmapFactory.Options()
                 options.inJustDecodeBounds = true
                 BitmapFactory.decodeByteArray(plantImage, 0, plantImage.size, options)
@@ -250,7 +286,6 @@ class Home : Fragment() {
         }
         cursor.close()
         for(item in toxicPlantLocList){
-            //Log.d(TAG,"Loop "+item.plantEnName+" : "+item.locaEnName)
 
         }
         return toxicPlantLocList
@@ -274,6 +309,8 @@ class Home : Fragment() {
 
         return inSampleSize
     }
+
+
 
 }
 

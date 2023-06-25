@@ -15,14 +15,16 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     final private static int DATABASE_VERSION = 1;
     final private static String DATABASE_NAME = "PlantStore.db";
-
     private AssetManager assets;
     private String databaseDir;
+
     private static final String TAG = "DB";
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,6 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {}
@@ -89,6 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             outputStream.close();
             inputStream.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
