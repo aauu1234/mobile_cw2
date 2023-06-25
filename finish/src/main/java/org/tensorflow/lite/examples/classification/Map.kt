@@ -108,14 +108,10 @@ class Map : Fragment() {
                 map.animateCamera(cameraUpdate)
 
             enableMyLocation(map)
-//                val currentLoction=getCurrentLocation(map)
-//                val cameraUpdate=CameraUpdateFactory.newLatLngZoom(currentLoction,12F)
-//                map.animateCamera(cameraUpdate)
             kongTongGeofence(kongTongArea,map,"TongKong")
             handleMapGeofenceList(map)
             onMapLongClick(map)
-//            setLongClick(map)
-//            setPoiClick(map)
+
             // Draw Polygon
             map.addPolygon(drawHouse())
             map.addPolygon(drawPingShak())
@@ -130,7 +126,6 @@ class Map : Fragment() {
                 // Set title of marker
                 markerOptions.title(latLng.latitude.toString() + " : " + latLng.longitude)
                 // Remove all marker
-             //   map.clear()
                 // Animating to zoom the marker
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
                 // Add marker on map
@@ -146,13 +141,13 @@ class Map : Fragment() {
 
         return rootView
     }
-
+//check the phone permission
     private fun isPermissionGranted() : Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
-
+//enable the gpa location
     private fun enableMyLocation(map:GoogleMap) {
         if (isPermissionGranted()) {
             val locationRequest = LocationRequest.create().apply {
@@ -193,7 +188,7 @@ class Map : Fragment() {
             )
         }
     }
-
+//for debug function
     private fun getCurrentLocation(map: GoogleMap):LatLng{
         var mylatitude=0.0
         var mylongtitude=0.0
@@ -232,7 +227,7 @@ class Map : Fragment() {
         var myloca=LatLng(mylatitude,mylongtitude);
         return myloca
     }
-
+//request the nessary phone permission
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -259,7 +254,7 @@ class Map : Fragment() {
             }
         }
     }
-
+//for long click map function
     private fun onMapLongClick(map: GoogleMap){
         map.setOnMapLongClickListener { latlng ->
             if (Build.VERSION.SDK_INT >= 29) {
@@ -268,7 +263,7 @@ class Map : Fragment() {
             }
         }
     }
-
+//create the Geofence function
     private fun kongTongGeofence(p0:LatLng,map: GoogleMap,ID: String){
         handleMapGeofence(p0,map,ID)
     }
@@ -361,7 +356,7 @@ class Map : Fragment() {
         circleOptions.strokeWidth(4F)
         map.addCircle(circleOptions)
     }
-
+//add new geofence function
     private fun addGeofence(p0: LatLng){
         val randomId = Random.nextInt(9999).toString()
         val geofence =geofenceHelper.getGeofence(randomId,p0,101.00, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
@@ -379,7 +374,7 @@ class Map : Fragment() {
             }
         }
     }
-
+//add default toxic plant geofence function
     private fun addToxicGeofence(p0: LatLng,ID:String){
 
         val geofence =geofenceHelper.getGeofence(ID,p0,200.00, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
@@ -401,15 +396,12 @@ class Map : Fragment() {
             Log.d("Failure","Geofence Already Exist")
         }
     }
-
+//handle the toxic plant data from sqlite
     private fun getToxicPlantLocData():List<ToxicPlantLocModels>{
         AssetsDatabaseManager.initManager(activity);
-// 获取管理对象，因为数据库需要通过管理对象才能够获取
         val mg = AssetsDatabaseManager.getManager();
-        // 通过管理对象获取数据库l
         val db1: SQLiteDatabase = mg.getDatabase("PlantStore.db");
         val toxicPlantLocList= arrayListOf<ToxicPlantLocModels>();
-// 对数据库进行操作
         val cursor=db1.query("Toxic_plant_loca , Plant",null,"plant_seq=id",null,null,null,null)
         if(cursor.moveToFirst()){
             do{
@@ -600,13 +592,13 @@ class Map : Fragment() {
 
 
 
-
+//for the debug function
     private fun cancelJob() {
         val scheduler = requireActivity().getSystemService(AppCompatActivity.JOB_SCHEDULER_SERVICE) as JobScheduler
         scheduler.cancel(321)
         Log.d(TAG, "Job cancelled")
     }
-
+//draw the area
     private fun drawHouse():PolygonOptions {
         //draw ploygon start
         val polygonOptions = PolygonOptions()
@@ -621,7 +613,7 @@ class Map : Fragment() {
 
         return  polygonOptions
     }
-
+    //located PingShak location
     private fun drawPingShak():PolygonOptions {
         //draw ploygon start
         val polygonOptions = PolygonOptions()
@@ -636,7 +628,7 @@ class Map : Fragment() {
 
         return  polygonOptions
     }
-
+//located kong tong location
     private fun drawKongTong():PolygonOptions {
         //draw ploygon start
         val polygonOptions = PolygonOptions()

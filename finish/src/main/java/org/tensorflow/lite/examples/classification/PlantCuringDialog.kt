@@ -22,13 +22,13 @@ class PlantCuringDialog : DialogFragment(){
         var rootView:View=inflater.inflate(R.layout.plant_curing_dialog,container,false)
         plantName=arguments?.getString("plantName")
         rootView.CuringTitle.text=plantName
-
+//call sqlite database table to get plant related records
         AssetsDatabaseManager.initManager(activity);
-// 获取管理对象，因为数据库需要通过管理对象才能够获取
+
         val mg = AssetsDatabaseManager.getManager();
-        // 通过管理对象获取数据库l
+
         val db1: SQLiteDatabase = mg.getDatabase("PlantStore.db");
-// 对数据库进行操作
+
         val cursor=db1.query("Plant",null,"plantname = '${plantName}'",null,null,null,null)
 
         if(cursor.moveToFirst()){

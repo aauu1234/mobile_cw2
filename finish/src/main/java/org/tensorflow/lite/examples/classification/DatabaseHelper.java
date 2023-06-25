@@ -30,17 +30,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
         assets = context.getAssets();
-        Log.d(TAG,"dsaLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"+assets);
+
         databaseDir = context.getApplicationInfo().dataDir + "/databases/";
         Log.d(TAG,"databaseDir"+databaseDir);
         File file = new File(databaseDir);
         //file.mkdir();
         if(!file.exists()) {
-            Log.d(TAG,"FUCK");
+
             file.mkdir();
 
         }else{
-            Log.d(TAG,"YOU");
+
         }
 
     }
@@ -77,9 +77,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void copyDatabase() {
 
         try {
-            Log.d(TAG,"dsaPLACEPLACEPLACE"+assets);
+
             InputStream inputStream = assets.open("databases/" + DATABASE_NAME);
-            Log.d(TAG,"dBBBBBBBBBBBBBBBBBBBBBBBB"+inputStream.read());
+
             FileOutputStream outputStream = new FileOutputStream(databaseDir + DATABASE_NAME);
 
             byte[] buffer = new byte[8 * 1024];

@@ -252,6 +252,7 @@ class Home : Fragment(), DatabaseUpdateObserver {
     private fun getToxicPlantLocData():List<PlantModels>{
         AssetsDatabaseManager.closeAllDatabase()
         AssetsDatabaseManager.initManager(activity);
+        //call sqlite database table to get plant related records
         val mg = AssetsDatabaseManager.getManager();
         val db1: SQLiteDatabase = mg.getDatabase("PlantStore.db");
         val toxicPlantLocList= arrayListOf<PlantModels>();

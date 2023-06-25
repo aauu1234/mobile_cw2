@@ -33,7 +33,7 @@ private lateinit var binding: ActivityMain2Binding
 
         setContentView(binding.root)
         replaceFragment(Home())
-
+        //bottom Navigation View control
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home->replaceFragment(Home())
@@ -57,7 +57,7 @@ private lateinit var binding: ActivityMain2Binding
 
 
     }
-
+    //tranfer fragment function
     private  fun replaceFragment(fragment:Fragment)
     {
         val fragmentManager=supportFragmentManager

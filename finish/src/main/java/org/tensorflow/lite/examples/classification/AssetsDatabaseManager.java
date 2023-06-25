@@ -63,41 +63,7 @@ public class AssetsDatabaseManager {
      * @param dbfile, the assets file which will be opened for a database
      * @return, if success it return a SQLiteDatabase object else return null
      */
-//    public SQLiteDatabase getDatabase(String dbfile) {
-//        if(databases.get(dbfile) != null){
-//            Log.i(tag, String.format("Return a database copy of %s", dbfile));
-//            return (SQLiteDatabase) databases.get(dbfile);
-//        }
-//        if(context==null)
-//            return null;
-//
-//        Log.i(tag, String.format("Create database %s", dbfile));
-//        String spath = getDatabaseFilepath();
-//        String sfile = getDatabaseFile(dbfile);
-//
-//        File file = new File(sfile);
-//        SharedPreferences dbs = context.getSharedPreferences(AssetsDatabaseManager.class.toString(), 0);
-//        boolean flag = dbs.getBoolean(dbfile, false); // Get Database file flag, if true means this database file was copied and valid
-//        if(!flag || !file.exists()){
-//            file = new File(spath);
-//            if(!file.exists() && !file.mkdirs()){
-//                Log.i(tag, "Create \""+spath+"\" fail!");
-//                return null;
-//            }
-//            if(!copyAssetsToFilesystem(dbfile, sfile)){
-//                Log.i(tag, String.format("Copy %s to %s fail!", dbfile, sfile));
-//                return null;
-//            }
-//
-//            dbs.edit().putBoolean(dbfile, true).commit();
-//        }
-//
-//        SQLiteDatabase db = SQLiteDatabase.openDatabase(sfile, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
-//        if(db != null){
-//            databases.put(dbfile, db);
-//        }
-//        return db;
-//    }
+
 
     public SQLiteDatabase getDatabase(String dbfile) {
         if (context == null) {

@@ -25,7 +25,13 @@ class MainLogin : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         executor = ContextCompat.getMainExecutor(this)
+        // Initialize executor, biometricPrompt, and promptInfo objects
 
+        // Set up biometric authentication callback
+
+        // Set up biometric prompt info
+
+        // Initialize the biometric login button and set its onClickListener
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
 
@@ -72,7 +78,7 @@ class MainLogin : AppCompatActivity() {
             biometricPrompt.authenticate(promptInfo)
         }
     }
-
+    // Check biometric authentication status and update the biometricStatusTextView
     override fun onResume() {
         super.onResume()
         val biometricStatusTextView =
@@ -90,7 +96,7 @@ class MainLogin : AppCompatActivity() {
                 biometricStatusTextView.text = "Biometric features are not enrolled."
         }
     }
-
+    // Log touch events on the screen
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val x = event.x
         val y = event.y

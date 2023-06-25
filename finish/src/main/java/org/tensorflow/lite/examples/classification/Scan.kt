@@ -80,15 +80,14 @@ class Scan : Fragment(){
         result =view.result
         imageView =view.imageView2
 
-      //  var plantArrayList= arrayListOf<PlantModels>()
-        //   var plantStatus=""
-// 初始化，只需要调用一次
+
+//call sqlite database table to get plant related records
         AssetsDatabaseManager.initManager(requireContext());
-// 获取管理对象，因为数据库需要通过管理对象才能够获取
+
         val mg = AssetsDatabaseManager.getManager();
-        // 通过管理对象获取数据库l
+
         val db1: SQLiteDatabase = mg.getDatabase("PlantStore.db");
-// 对数据库进行操作
+
         val cursor=db1.query("Plant",null,null,null,null,null,null)
 
         if(cursor.moveToFirst()){
@@ -111,8 +110,8 @@ class Scan : Fragment(){
             view?.EPOS2?.visibility=View.INVISIBLE
         }
 
-    //    disableAllButton()
 
+        //scan from take photos button
         view.button3.setOnClickListener(View.OnClickListener {
             if (ActivityCompat.checkSelfPermission(requireContext(),Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -121,12 +120,13 @@ class Scan : Fragment(){
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), 100)
             }
         })
+        //scan from gallery button
         view.button2.setOnClickListener(View.OnClickListener {
             val cameraIntent =
                 Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(cameraIntent, 1)
         })
-
+        //Real time scan button
         view.button4.setOnClickListener(View.OnClickListener{
             val i= Intent(this.context, MainActivity::class.java)
             startActivity(i)

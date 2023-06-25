@@ -19,7 +19,5 @@ class MainLoginTest {
         // Click the biometric login button
         onView(withId(R.id.biometric_login)).perform(click())
 
-        // Verify that the biometric prompt is shown (This will require manual intervention)
-        // Ideally, you should mock the BiometricPrompt behavior for better automation
     }
 }

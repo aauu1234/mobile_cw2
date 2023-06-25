@@ -77,31 +77,24 @@ class MainActivity : AppCompatActivity() {
 
     // Contains the recognition result. Since  it is a viewModel, it will survive screen rotations
     private val recogViewModel: RecognitionListViewModel by viewModels()
-
-    //alan test start
     private lateinit var binding: ActivityMainBinding
-    //alan test end
     var resultLabel:String=""
     var resultConidence:Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //alan test start
-   //     binding.
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //db test3 start
-       // test()
+
        var plantArrayList= arrayListOf<PlantModels>()
-     //   var plantStatus=""
-// 初始化，只需要调用一次
+
         AssetsDatabaseManager.initManager(this);
-// 获取管理对象，因为数据库需要通过管理对象才能够获取
+
         val mg = AssetsDatabaseManager.getManager();
-        // 通过管理对象获取数据库l
+
         val db1: SQLiteDatabase = mg.getDatabase("PlantStore.db");
-// 对数据库进行操作
+
         val cursor=db1.query("Plant",null,null,null,null,null,null)
 
         if(cursor.moveToFirst()){
@@ -124,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
         disableAllButton()
 
-        //alan test end
+
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
@@ -134,13 +127,11 @@ class MainActivity : AppCompatActivity() {
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
         }
-            //alan test
+
         Log.d(TAG,"result get")
         Log.d(TAG,resultLabel)
         Log.d(TAG,resultConidence.toString())
-        //alan test
-        //alan test start
-        //   replaceFragment(())
+
         binding.bottomNavigationView.menu.getItem(1).setChecked(true)
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -160,7 +151,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        //alan test end
+
         // Initialising the resultRecyclerView and its linked viewAdaptor
         val viewAdapter = RecognitionAdapter(this)
         resultRecyclerView.adapter = viewAdapter
@@ -196,26 +187,24 @@ class MainActivity : AppCompatActivity() {
 
             }
         )
-        //alan test end
+
 
 
     }
 
     override fun onStart() {
         super.onStart()
-        //alan test
+
         Log.d(TAG,"result get")
         Log.d(TAG,resultLabel)
         Log.d(TAG,resultConidence.toString())
         pauseAnalysis=false
-        //alan test
-      //  Toast.makeText(getApplicationContext(), "onStart called", Toast.LENGTH_LONG).show();
 
     }
 
     override fun onResume() {
         super.onResume()
-      //  Toast.makeText(getApplicationContext(), "onResume called", Toast.LENGTH_LONG).show();
+
     }
 
     private fun StopCamera() {
@@ -308,17 +297,9 @@ class MainActivity : AppCompatActivity() {
                             //    Log.d(TAG,list[0].status)
                             resultLabel=items[0].label
                             resultConidence=items[0].confidence
-                        //    Log.d(TAG,items.toString())
 
-
-
-                          //  pauseAnalysis=true
-                          //  Log.d(TAG,pauseAnalysis.toString())
                         }
-//                        AlertDialog.Builder(this)
-//                            .setMessage("gadsd")
-//                            .setTitle("sad")
-//                            .show()
+
 
                     }
 
@@ -398,6 +379,7 @@ private fun checkPlantStatus(plantArrayList:ArrayList<PlantModels>):String{
         }
         return ""
     }
+    // disable all alert button function
 private fun disableAllButton(){
     if(binding.EAT.visibility==View.VISIBLE)
         binding.EAT.visibility=View.INVISIBLE
@@ -408,7 +390,7 @@ private fun disableAllButton(){
     if(binding.EPOS.visibility==View.VISIBLE)
         binding.EPOS.visibility=View.INVISIBLE
 }
-
+// debug camera function
     private fun testStopCameraButton(){
         binding.button.setOnClickListener(View.OnClickListener{
             val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -421,7 +403,7 @@ private fun disableAllButton(){
             }, ContextCompat.getMainExecutor(this))
         })
     }
-
+//when the alert button click function
     private fun buttonAction(plantName:String){
         binding.EAT.setOnClickListener(View.OnClickListener {
             //bundle used to transfer data to fragment
@@ -454,6 +436,7 @@ private fun disableAllButton(){
             dialog.show(supportFragmentManager,"plantInfoDialog")
         })
     }
+    //alert button visibility status
     private fun alertButton(status:String){
         var status=status
 
@@ -510,12 +493,12 @@ private fun disableAllButton(){
     private class ImageAnalyzer(ctx: Context,pauseAnalysis:Boolean,private val listener: RecognitionListener) :
         ImageAnalysis.Analyzer {
 
-        // TODO 1: Add class variable TensorFlow Lite Model
+
         // Initializing the flowerModel by lazy so that it runs in the same thread when the process
         // method is called.
         private val flowerModel: FlowerModel by lazy{
 
-            // TODO 6. Optional GPU acceleration
+
             val compatList = CompatibilityList()
 
             val options = if(compatList.isDelegateSupportedOnThisDevice) {
@@ -537,23 +520,18 @@ private fun disableAllButton(){
 
             Log.d(TAG,pauseAnalysis.toString())
             if(pauseAnalysis==false){
-                // TODO 2: Convert Image to Bitmap then to TensorImage
+
                 val tfImage = TensorImage.fromBitmap(toBitmap(imageProxy))
 
-                // TODO 3: Process the image using the trained model, sort and pick out the top results
+
                 val outputs = flowerModel.process(tfImage)
                     .probabilityAsCategoryList.apply {
                         sortByDescending { it.score } // Sort with highest confidence first
                     }.take(MAX_RESULT_DISPLAY) // take the top results
 
-                // TODO 4: Converting the top probability items into a list of recognitions
                 for (output in outputs) {
                     items.add(Recognition(output.label, output.score))
-                    //  Log.d(TAG, output.label)
 
-                    //      if(output.score>0.60){
-
-                    //    }
 
                 }
 
@@ -566,12 +544,6 @@ private fun disableAllButton(){
               Log.d(TAG,"asddddddddddddddaskdanjnjdanjfdanjdnjnjdanjjndfjnadfnjadfjndafnjdafnjdjna")
             }
 
-
-//            // START - Placeholder code at the start of the codelab. Comment this block of code out.
-//            for (i in 0 until MAX_RESULT_DISPLAY){
-//                items.add(Recognition("Fake label $i", Random.nextFloat()))
-//            }
-//            // END - Placeholder code at the start of the codelab. Comment this block of code out.
 
         }
 

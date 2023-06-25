@@ -47,6 +47,11 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             stopDwellTimer()
             return
         }
+        // Initialize variables and check for geofence event errors
+
+        // Check if notifications are enabled
+
+        // Handle geofence transition types
         when (transitionTypes) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> {
                 Log.d("getMapStatus", "enter GEOFENCE_TRANSITION_ENTER")
