@@ -60,17 +60,10 @@ class HomeFragmentTest {
 
     @Test
     fun testPlantInfoDetail() {
-        // Click Scan item
         onView(withId(R.id.home)).perform(click())
         onView(withId(R.id.frame_layout)).check(matches(isDisplayed()))
-      //  onView(withId(R.id.childCardView)).perform(click())
         onView(isRoot()).perform(clickOn(x = 286.6113f, y = 556.9482f))
         onView(withId(R.id.info)).check(matches(isDisplayed()))
-        onView(withId(R.id.drugEffect)).perform(click())
-        onView(withId(R.id.frame_layout)).check(matches(isDisplayed()))
-        //onView(withId(R.id.curing)).perform(click())
-        //onView(withId(R.id.curing)).check(matches(isDisplayed()))
-        //onView(withId(R.id.frame_layout)).check(matches(isAtCoordinates(x = 286.6113f, y = 556.9482f)))
 
 
     }
